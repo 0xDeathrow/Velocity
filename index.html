@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELOCITY — Crypto Keyboard Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <h1 class="demo-title">VELOCITY <span>Demo</span></h1>
+        <p class="demo-subtitle">Tap the contract address to open the trading terminal</p>
+
+        <!-- Phone Frame -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span class="status-time">13:46</span>
+                <div class="status-icons">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                        <path
+                            d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+                    </svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                        <path d="M2 22h20V2z M2 22V7h4v15zm6 0V3h4v19zm6 0V10h4v12z" />
+                    </svg>
+                    <span class="battery">85</span>
+                </div>
+            </div>
+
+            <!-- Telegram Chat Area -->
+            <div class="telegram-chat">
+                <!-- Telegram Header -->
+                <div class="tg-header">
+                    <div class="tg-back">‹</div>
+                    <div class="tg-unread-badge">935</div>
+                    <div class="tg-header-info">
+                        <div class="tg-group-name">Trenchers 🔥</div>
+                        <div class="tg-group-meta">4 members, 2 online</div>
+                    </div>
+                    <div class="tg-avatar">T</div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="tg-messages">
+                    <div class="tg-msg tg-msg-other">
+                        <div class="tg-msg-sender">CryptoKing</div>
+                        <div class="tg-msg-text">yo who's aping into TROLL? 🚀🚀</div>
+                        <div class="tg-msg-time">13:41</div>
+                    </div>
+
+                    <div class="tg-msg tg-msg-self">
+                        <div class="tg-msg-text">which one? send the CA</div>
+                        <div class="tg-msg-time">13:42 ✓✓</div>
+                    </div>
+
+                    <div class="tg-msg tg-msg-other">
+                        <div class="tg-msg-sender">CryptoKing</div>
+                        <div class="tg-msg-text">this one is mooning hard rn 🔥</div>
+                        <div class="tg-msg-time">13:43</div>
+                    </div>
+
+                    <div class="tg-msg tg-msg-other">
+                        <div class="tg-msg-sender">CryptoKing</div>
+                        <div class="tg-msg-text">
+                            <span class="ca-link" id="caLink">5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2</span>
+                        </div>
+                        <div class="tg-msg-time">13:44</div>
+                    </div>
+
+                    <div class="tg-msg tg-msg-other">
+                        <div class="tg-msg-sender">AlphaHunter</div>
+                        <div class="tg-msg-text">LFG just threw 2 SOL at it 💰</div>
+                        <div class="tg-msg-time">13:44</div>
+                    </div>
+
+                    <div class="tg-msg tg-msg-self">
+                        <div class="tg-msg-text">bet, let me check it</div>
+                        <div class="tg-msg-time">13:45 ✓✓</div>
+                    </div>
+                </div>
+
+                <!-- Message Input -->
+                <div class="tg-input-bar">
+                    <div class="tg-attach-icon">📎</div>
+                    <div class="tg-input-field">Message</div>
+                    <div class="tg-input-icons">
+                        <span>😊</span>
+                        <span>🎤</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Android Long-Press Context Menu -->
+            <div class="context-menu-overlay" id="contextOverlay">
+                <div class="context-menu" id="contextMenu">
+                    <div class="ctx-msg-preview">
+                        <span class="ctx-msg-text">5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2</span>
+                    </div>
+                    <div class="ctx-actions">
+                        <div class="ctx-action" id="ctxReply">↩ Reply</div>
+                        <div class="ctx-action ctx-copy" id="ctxCopy">📋 Copy</div>
+                        <div class="ctx-action" id="ctxForward">↗ Forward</div>
+                        <div class="ctx-action" id="ctxPin">📌 Pin</div>
+                        <div class="ctx-action" id="ctxSelect">☑ Select</div>
+                        <div class="ctx-action ctx-delete">🗑 Delete</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Velocity Keyboard Area -->
+            <div class="typex-area" id="typexArea">
+
+                <!-- Trading Terminal Panel (single-click) -->
+                <div class="typex-panel" id="tradingPanel">
+                    <div class="typex-panel-header">
+                        <div class="typex-back" onclick="closePanel()">‹</div>
+                        <img src="troll-token.png" alt="TROLL" class="token-icon-img">
+                        <span class="typex-token-name">TROLL</span>
+                        <div class="typex-tabs">
+                            <span class="typex-tab-btn" id="viewChartBtn">Chart / Limits</span>
+                        </div>
+                        <div class="typex-close" onclick="closePanel()">✕</div>
+                    </div>
+
+                    <div class="typex-terminal-body">
+                        <!-- Buy Section -->
+                        <div class="terminal-section buy-section">
+                            <div class="section-header">
+                                <span class="section-label">Buy</span>
+                                <span class="sol-balance">5.81 <img
+                                        src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="SOL"
+                                        class="sol-logo-inline"></span>
+                            </div>
+                            <div class="preset-buttons buy-presets">
+                                <button class="preset-btn buy-btn active">0.1</button>
+                                <button class="preset-btn buy-btn">0.5</button>
+                                <button class="preset-btn buy-btn">1</button>
+                                <button class="preset-btn buy-btn">2</button>
+                            </div>
+                            <div class="settings-row">
+                                <span>⚡ 0.003</span>
+                                <span>◉ 0.004</span>
+                                <span>⟡ 20%</span>
+                                <span>♡ On</span>
+                            </div>
+                        </div>
+
+                        <!-- Sell Section -->
+                        <div class="terminal-section sell-section">
+                            <div class="section-header">
+                                <span class="section-label">Sell % ⇄</span>
+                                <span class="token-balance">0 <img
+                                        src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="SOL"
+                                        class="sol-logo-inline"> 0.00 TROLL</span>
+                            </div>
+                            <div class="preset-buttons sell-presets">
+                                <button class="preset-btn sell-btn">25%</button>
+                                <button class="preset-btn sell-btn">50%</button>
+                                <button class="preset-btn sell-btn">75%</button>
+                                <button class="preset-btn sell-btn">100%</button>
+                            </div>
+                            <div class="settings-row">
+                                <span>⚡ 0.003</span>
+                                <span>◉ 0.004</span>
+                                <span>⟡ 20%</span>
+                                <span>♡ On</span>
+                            </div>
+                        </div>
+
+                        <!-- Position Info -->
+                        <div class="bottom-amounts" id="positionInfo">
+                            <div class="pos-box">
+                                <span class="pos-label">Bought</span>
+                                <span class="pos-value" id="posBought">—</span>
+                            </div>
+                            <div class="pos-box">
+                                <span class="pos-label">Sold</span>
+                                <span class="pos-value" id="posSold">—</span>
+                            </div>
+                            <div class="pos-box">
+                                <span class="pos-label">Remaining</span>
+                                <span class="pos-value" id="posRemaining">—</span>
+                            </div>
+                            <div class="pos-box">
+                                <span class="pos-label">P/L</span>
+                                <span class="pos-value" id="posPnl">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Panel (double-click) -->
+                <div class="typex-panel" id="chartPanel">
+                    <div class="typex-panel-header chart-header">
+                        <div class="typex-back" onclick="closePanel()">‹</div>
+                        <img src="troll-token.png" alt="TROLL" class="token-icon-img">
+                        <span class="typex-token-name">TROLL</span>
+                        <div class="typex-close" onclick="closePanel()">✕</div>
+                    </div>
+
+                    <div class="chart-body">
+                        <div class="chart-price-row">
+                            <span class="chart-price">$0.00234889</span>
+                            <span class="chart-change">+12.4% <small>24h</small></span>
+                        </div>
+                        <div class="chart-info-row">
+                            <span>Create Time 3d ago</span>
+                            <span class="chart-ca">CA:5UUH...hgH2 📋</span>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Volume</div>
+                                <div class="stat-value">$12,482</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">MC</div>
+                                <div class="stat-value">$87.3K</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Holders</div>
+                                <div class="stat-value">1,847</div>
+                            </div>
+                        </div>
+                        <div class="chart-timeframes">
+                            <button class="tf-btn" data-tf="1m">1m</button>
+                            <button class="tf-btn" data-tf="5m">5m</button>
+                            <button class="tf-btn active" data-tf="15m">15m</button>
+                            <button class="tf-btn" data-tf="1h">1h</button>
+                            <button class="tf-btn" data-tf="4h">4h</button>
+                            <button class="tf-btn" data-tf="1D">1D</button>
+                        </div>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="trollChart" width="340" height="140"></canvas>
+                        </div>
+                        <div class="chart-actions">
+                            <button class="chart-sell-btn">Sell</button>
+                            <button class="chart-buy-btn">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Android-style Keyboard -->
+                <div class="android-keyboard" id="androidKeyboard">
+                    <div class="akb-row akb-number-row">
+                        <div class="akb-key">1</div>
+                        <div class="akb-key">2</div>
+                        <div class="akb-key">3</div>
+                        <div class="akb-key">4</div>
+                        <div class="akb-key">5</div>
+                        <div class="akb-key">6</div>
+                        <div class="akb-key">7</div>
+                        <div class="akb-key">8</div>
+                        <div class="akb-key">9</div>
+                        <div class="akb-key">0</div>
+                    </div>
+                    <div class="akb-row">
+                        <div class="akb-key">q</div>
+                        <div class="akb-key">w</div>
+                        <div class="akb-key">e</div>
+                        <div class="akb-key">r</div>
+                        <div class="akb-key">t</div>
+                        <div class="akb-key">y</div>
+                        <div class="akb-key">u</div>
+                        <div class="akb-key">i</div>
+                        <div class="akb-key">o</div>
+                        <div class="akb-key">p</div>
+                    </div>
+                    <div class="akb-row">
+                        <div class="akb-key">a</div>
+                        <div class="akb-key">s</div>
+                        <div class="akb-key">d</div>
+                        <div class="akb-key">f</div>
+                        <div class="akb-key">g</div>
+                        <div class="akb-key">h</div>
+                        <div class="akb-key">j</div>
+                        <div class="akb-key">k</div>
+                        <div class="akb-key">l</div>
+                    </div>
+                    <div class="akb-row">
+                        <div class="akb-key akb-shift">⇧</div>
+                        <div class="akb-key">z</div>
+                        <div class="akb-key">x</div>
+                        <div class="akb-key">c</div>
+                        <div class="akb-key">v</div>
+                        <div class="akb-key">b</div>
+                        <div class="akb-key">n</div>
+                        <div class="akb-key">m</div>
+                        <div class="akb-key akb-backspace">⌫</div>
+                    </div>
+                    <div class="akb-row akb-bottom-row">
+                        <div class="akb-key akb-fn">?123</div>
+                        <div class="akb-key akb-emoji">😀</div>
+                        <div class="akb-key akb-space">English</div>
+                        <div class="akb-key akb-period">.</div>
+                        <div class="akb-key akb-enter">↵</div>
+                    </div>
+                </div>
+
+                <!-- Velocity Branding -->
+                <div class="velocity-powered">
+                    <img src="14.png" alt="Velocity" class="velocity-powered-logo">
+                    <span>Powered by Velocity</span>
+                </div>
+            </div>
+
+            <!-- Android Nav Bar -->
+            <div class="android-nav-bar">
+                <div class="android-nav-btn">◁</div>
+                <div class="android-nav-btn android-nav-home">○</div>
+                <div class="android-nav-btn">□</div>
+            </div>
+        </div>
+
+        <p class="demo-hint">
+            <span class="hint-icon">👆</span> Tap CA → Long-press menu → Copy → Trading Terminal &nbsp;|&nbsp;
+            <span class="hint-icon">👆👆</span> Double tap CA → Chart View
+        </p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
