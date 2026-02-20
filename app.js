@@ -109,9 +109,9 @@
             dismissContextMenu();
         }, 450);
 
-        // Open wallet screen
+        // Open trading terminal (buy/sell)
         setTimeout(function () {
-            openPanel('wallet');
+            openPanel('market');
         }, 700);
     }
 
