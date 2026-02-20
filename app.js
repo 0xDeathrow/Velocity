@@ -10,14 +10,46 @@
     var contextOverlay = document.getElementById('contextOverlay');
     var ctxCopy = document.getElementById('ctxCopy');
 
+    // Screens
+    var walletScreen = document.getElementById('walletScreen');
+    var sendScreen = document.getElementById('sendScreen');
+    var successScreen = document.getElementById('successScreen');
+    var tradingScreen = document.getElementById('tradingScreen');
+
     // Tab elements
     var marketTabBtn = document.getElementById('marketTabBtn');
     var chartTabBtn = document.getElementById('chartTabBtn');
     var marketContent = document.getElementById('marketContent');
     var chartContent = document.getElementById('chartContent');
 
+    // Navigation buttons
+    var walletSendBtn = document.getElementById('walletSendBtn');
+    var sendBackBtn = document.getElementById('sendBackBtn');
+    var sendConfirmBtn = document.getElementById('sendConfirmBtn');
+    var successBackBtn = document.getElementById('successBackBtn');
+    var successDetailsBtn = document.getElementById('successDetailsBtn');
+    var tradingBackBtn = document.getElementById('tradingBackBtn');
+
     // Find the parent message bubble of the CA link
     var caMessage = caLink.closest('.tg-msg');
+
+    // All screens list
+    var allScreens = [walletScreen, sendScreen, successScreen, tradingScreen];
+
+    // ────────────────────────────────────────
+    // Screen Navigation
+    // ────────────────────────────────────────
+
+    function showScreen(screen) {
+        allScreens.forEach(function (s) {
+            s.style.display = 'none';
+        });
+        screen.style.display = '';
+        // Re-trigger animation
+        screen.style.animation = 'none';
+        screen.offsetHeight; // force reflow
+        screen.style.animation = '';
+    }
 
     // ────────────────────────────────────────
     // CA Click → Show Context Menu (faster)
@@ -77,9 +109,9 @@
             dismissContextMenu();
         }, 450);
 
-        // Open trading panel quickly
+        // Open wallet screen
         setTimeout(function () {
-            openPanel('market');
+            openPanel('wallet');
         }, 700);
     }
 
@@ -146,10 +178,14 @@
     function openPanel(type) {
         tradingPanel.classList.add('active');
 
-        if (type === 'market') {
-            switchTab('market');
+        if (type === 'wallet') {
+            showScreen(walletScreen);
         } else if (type === 'chart') {
+            showScreen(tradingScreen);
             switchTab('chart');
+        } else if (type === 'market') {
+            showScreen(tradingScreen);
+            switchTab('market');
         }
 
         var messages = document.querySelector('.tg-messages');
@@ -158,7 +194,43 @@
 
     window.closePanel = function () {
         tradingPanel.classList.remove('active');
+        // Reset to wallet screen for next open
+        showScreen(walletScreen);
     };
+
+    // ────────────────────────────────────────
+    // Screen Navigation Button Handlers
+    // ────────────────────────────────────────
+
+    // Wallet → Send
+    walletSendBtn.addEventListener('click', function () {
+        showScreen(sendScreen);
+    });
+
+    // Send → back to Wallet
+    sendBackBtn.addEventListener('click', function () {
+        showScreen(walletScreen);
+    });
+
+    // Send → Confirm → Success
+    sendConfirmBtn.addEventListener('click', function () {
+        showScreen(successScreen);
+    });
+
+    // Success → back to Wallet
+    successBackBtn.addEventListener('click', function () {
+        showScreen(walletScreen);
+    });
+
+    // Success → View Details → back to Wallet
+    successDetailsBtn.addEventListener('click', function () {
+        showScreen(walletScreen);
+    });
+
+    // Trading → back to Wallet
+    tradingBackBtn.addEventListener('click', function () {
+        showScreen(walletScreen);
+    });
 
     // ────────────────────────────────────────
     // Tab Switching (Market / Chart)
